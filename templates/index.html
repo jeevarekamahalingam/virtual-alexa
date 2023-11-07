@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" >// <![CDATA[ 
+        function loading(){
+            $("#loading").show();
+            $("#content").hide();       
+        }
+// ]]></script>
+	<title>Alexa</title>
+	
+	<style>
+    h1 {
+        color: rgb(223, 218, 75); /* Change this to the color you desire */
+        font-family: serif, sans-serif; /* Change the font family */
+        font-size: 50px; /* Change the font size if needed */
+        font-weight: bold; /* Optionally, make it bold */
+        text-transform: uppercase;
+        text-shadow: 2px 2px 4px rgb(240, 241, 241);
+        text-align: center;
+        } 
+    
+ .heading { color: #f0ea2b;}  
+ .custom-text {
+    position: fixed;
+    top: 60px;; /* Adjust the top position to your preference (space below title) */
+    bottom:450px; /* Adjust the bottom position to your preference (space above footer) */
+    left: 50px;
+    right: 50px;
+    background-color: rgba(149, 182, 222, 0.61); /* Light background color with opacity */
+    border: 5px solid #2c2f2f; /* Border color */
+            border-radius: 15px; /* Border radius for rounded corners */
+            box-shadow: 0px 0px 20px 0px rgba(180, 183, 21, 0.75); /* Box shadow for blended sharpness */
+    color: #333;
+    text-align: center;
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds the box height */
+}
+.custom-text1 {
+    position: fixed;
+    top: 330px;; /* Adjust the top position to your preference (space below title) */
+    bottom:20px; /* Adjust the bottom position to your preference (space above footer) */
+    left: 50px;
+    right: 50px;
+    background-color: rgba(50, 50, 53, 0.273); /* Light background color with opacity */
+    color: #333;
+    text-align: center;
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds the box height */
+    
+}
+
+
+.page th {
+    background-color: #add8e6;
+    color: white;
+}
+body {
+
+  
+	
+  background-image: url("static/Amazon-Alexa.avif");
+  background-color: #cccccc;
+  height: 1550px;;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+    
+   
+}
+div#loading {
+ 
+    width: 1700px;
+    height: 35px;
+    display: none;
+    background: url('{{ url_for('static', filename='loading_bar.gif' ) }}') no-repeat;
+    cursor: wait;
+    
+  }
+  
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;}
+
+.center1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</style>
+</head>
+<!--head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/styles.css">
+    <title>Python Voice Assistant</title>
+</head-->
+<body>
+    <div class="custom-text">
+        <h1 class="heading center" style="color:rgb(7, 152, 230);">Python Voice Assistant</h1>
+       </div>
+    <br>
+    <div class="container custom-text1 "><br><br>
+	    
+        <p style="color: white;font-size: 24px; font-weight: bold;text-align: center;">Hello!!<br>This is Alexa<br>Your inquiries are welcome; I'm here to lend a hand</p>
+        <input type="checkbox" id="myCheckbox" >
+        <label for="myCheckbox" style="color:white">Show transcript</label><br>
+        <!--input type="checkbox" id="myCheckbox1" style='display: none' -->
+        <input type="checkbox" id="myCheckbox1" >
+        <label for="myCheckbox1" style="color:white">Enable text input</label>
+        <br>
+        <input type="text" id="command" style="display: none;margin-bottom: 10px;">
+        <!--input type="text" id="you_talked" -->
+        <br>
+        <button id="newstartBtn" class="btn btn-primary button_add" disabled>Start Listening</button> <br> 
+        <textarea id="alexa_response" style="display:none; width: 400px; height: 200px; word-wrap: break-word; border: 1px solid black; overflow-y:auto; margin-top: 10px; "></textarea>
+        
+        <div id="result"><br>
+            <p style="color: white;font-size: 24px; font-weight: bold;text-align:center;">for information<a href="static/destination.html">click here</a>
+            </p>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+		enable_talkback=true; /Posible value true or false/
+        voices=window.speechSynthesis.getVoices();
+        window.speechSynthesis.onvoiceschanged = function() {
+	    document.getElementById("newstartBtn").disabled = false;
+        };
+            /*$('#startBtn').click(function () {
+			    $('#startBtn').text('Listening..');
+                $.ajax({
+                    type: 'POST',
+                    url: '/process',
+                    data:{
+                        command: $('#command').val()
+                        },
+                    success: function (response) {
+                        $('#startBtn').text('Start Listening');
+                    }
+                });
+            });
+        */
+            $('#newstartBtn').click(function () {
+                //alert("inside btn clicked")
+                if ($('#myCheckbox1').is(':checked')){
+                    $.ajax({
+                    type: 'POST',
+                    url: '/process',
+                    data:{
+                        command: $('#command').val()
+                        },
+                    success: function (response) {
+					    response_text=response["response"]
+                        $('#alexa_response').val(response_text);
+                        //alert(JSON.stringify(response))
+                        //alert(response["response"])
+                        // Create a new SpeechSynthesisUtterance object.
+						if (enable_talkback) {
+                        const utterance = new SpeechSynthesisUtterance(response_text);
+
+                        // Set the voice of the utterance.
+                        //utterance.voice = window.speechSynthesis.getVoices().find((voice) => voice.gender === 'female')
+                        utterance.voice = window.speechSynthesis.getVoices().find((voice) => voice.name === "Microsoft Zira Mobile - English (United States)")
+						//"Microsoft Heera Mobile - English (India)"
+						//"Microsoft Zira Mobile - English (United States)"
+						//"Google UK English Female"
+
+                        // Speak the utterance.
+                        window.speechSynthesis.speak(utterance);
+						}
+                        $('#newstartBtn').text('Start Listening');
+                    }
+                });
+
+                }
+                else{ 
+                                      
+                $('#newstartBtn').text('Listening..');
+                const recognition = new webkitSpeechRecognition();
+                recognition.continuous = false;
+                recognition.interimResults = false;
+                recognition.onresult = (event) => { 
+                const transcript = event.results[0][0].transcript;
+                console.log(transcript);
+                $('#command').val(transcript)
+                //alert(transcript)
+                $.ajax({
+                    type: 'POST',
+                    url: '/process',
+                    data:{
+                        command: $('#command').val()
+                        },
+                    success: function (response) {
+					    response_text=response["response"]
+                        $('#alexa_response').val(response_text);
+                        //alert(JSON.stringify(response))
+                        //alert(response["response"])
+                        // Create a new SpeechSynthesisUtterance object.
+						if (enable_talkback) {
+                        const utterance = new SpeechSynthesisUtterance(response_text);
+
+                        // Set the voice of the utterance.
+                        //utterance.voice = window.speechSynthesis.getVoices().find((voice) => voice.gender === 'female')
+                        //alert( window.speechSynthesis.getVoices().length)
+                        utterance.voice = window.speechSynthesis.getVoices().find((voice) => voice.name === "Microsoft Zira Mobile - English (United States)")
+						//"Microsoft Heera Mobile - English (India)"
+						//"Microsoft Zira Mobile - English (United States)"
+						//"Google UK English Female"
+                        //alert(utterance)
+						
+                        // Speak the utterance.
+                        window.speechSynthesis.speak(utterance);
+						}
+                        $('#newstartBtn').text('Start Listening');
+                    }
+                });
+                };
+                recognition.start();
+                //alert("recog started")
+                /*recognition.addEventListener('result', (event) => {
+                // Get the transcript of the user's speech.
+                    const transcript = event.result[0].transcript;
+                    $(you_talked).val(transcript)
+                    alert(transcript)
+                //sleep(2000)
+                })*/
+                    
+                }
+			    
+                
+            });
+            $('#myCheckbox').click(function () {
+                if ($('#myCheckbox').is(':checked')) {
+                    $('#command').show();
+                    $('#alexa_response').show();
+                    //$('#myCheckbox1').show();
+                } 
+                else {
+                    $('#command').val('').hide();
+                    //$('myCheckbox1').hide();
+                    $('#alexa_response').val('').hide();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
