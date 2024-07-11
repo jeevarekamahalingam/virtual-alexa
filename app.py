@@ -272,113 +272,13 @@ def run_alexa(command=None,computer=None, name=None, No=None):
             if(enable_talkback==True):
              talk('Your current location is ' + current_location)
             return 'Your current location is ' + current_location
-        
-        elif 'open instagram' in command:
-            website_name = command.split()[-1]
-            return_val=open_website('instagram')
-            if(enable_talkback==True):
-             talk(return_val)
-            return return_val
 
-        elif 'open youtube' in command:
-            website_name = command.split()[-1]
-            return_val=open_website('youtube')
+        elif 'open ' in command and ' in web browser' in command:
+            to_search = command.replace('open ', '').replace(' in web browser', '')
+            return_val=open_website(to_search)
             if(enable_talkback==True):
              talk(return_val)
             return return_val
-
-        elif 'open whatsapp' in command:
-            website_name = command.split()[-1]
-            return_val=open_website('whatsapp')
-            if(enable_talkback==True):
-             talk(return_val)
-            return return_val
-
-        elif 'open facebook' in command:
-            website_name = command.split()[-1]
-            return_val=open_website('facebook')
-            if(enable_talkback==True):
-             talk(return_val)
-            return return_val
-
-        elif 'open google' in command:
-            website_name = command.split()[-1]
-            return_val=open_website('google')
-            if(enable_talkback==True):
-             talk(return_val)
-            return return_val
-
-        elif 'open twitter' in command:
-            website_name = command.split()[-1]
-            return_val=open_website('twitter')
-            if(enable_talkback==True):
-             talk(return_val)
-            return return_val
-
-        elif 'open linkedin' in command:
-            website_name = command.split()[-1]
-            return_val=open_website('linkedin')
-            if(enable_talkback==True):
-             talk(return_val)
-            return return_val
-
-        elif 'open gmail' in command:
-            print("gmail")
-            website_name = command.split()[-1]
-            return_val=open_website('gmail')
-            if(enable_talkback==True):
-             talk(return_val)
-            return return_val
-
-        elif 'open cricinfo' in command:
-            website_name = command.split()[-1]
-            return_val=open_website('cricinfo')
-            if(enable_talkback==True):
-             talk(return_val)
-            return return_val
-        
-        elif 'open spotify' in command:
-            website_name = command.split()[-1]
-            return_val=open_website('spotify')
-            if(enable_talkback==True):
-             talk(return_val)
-            return return_val
-        
-        elif 'open quora' in command:
-            website_name = command.split()[-1]
-            return_val=open_website('quora')
-            if(enable_talkback==True):
-             talk(return_val)
-            return return_val
-        
-        elif 'open brainly' in command:
-            website_name = command.split()[-1]
-            return_val=open_website('brainly')
-            if(enable_talkback==True):
-             talk(return_val)
-            return return_val
-        
-        elif 'open vedantu' in command:
-            website_name = command.split()[-1]
-            return_val=open_website('vedantu')
-            if(enable_talkback==True):
-             talk(return_val)
-            return return_val
-        
-        elif 'open byjus' in command:
-            website_name = command.split()[-1]
-            return_val=open_website('byjus')
-            if(enable_talkback==True):
-             talk(return_val)
-            return return_val
-        
-        elif 'open daily hunt' in command:
-            website_name = command.split()[-1]
-            return_val=open_website('daily hunt')
-            if(enable_talkback==True):
-             talk(return_val)
-            return return_val
-
 
         elif 'calculate' in command:
             expression = re.search(r'calculate (.+)', command).group(1)
