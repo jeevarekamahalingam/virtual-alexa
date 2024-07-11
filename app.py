@@ -32,15 +32,15 @@ def talk(text):
 
 
 def weather(city):
-    api_key = "369d6e291ef4ddbbdf4db4bf6be5c5c0"
+    api_key = "c80f376d169fb61a0c229aaafb86514f"
     base_url = "http://api.openweathermap.org/data/2.5/weather?"
     city_name = city
     complete_url = base_url + "appid=" + api_key + "&q=" + city_name
     response = requests.get(complete_url)
     x = response.json()
-    if 'main' in x:
+    if "main" in x:
         y = x["main"]
-        current_temperature = y["temp"]
+        current_temperature = int(y["temp"]-273.15)
         return str(current_temperature)
     else:
         return "Sorry, I couldn't fetch the weather data for that city."
@@ -149,9 +149,6 @@ def run_alexa(command=None,computer=None, name=None, No=None):
             input_text = command.replace('alexa', '')+" "+hint 
             answer = bard.get_answer(input_text)
             m=answer['content'].replace("\r\n","").replace("*"," ").replace("**"," ").replace(hint," ")
-            #m=answer['content'].replace("*"," ")
-            #m=answer['content'].replace("**"," ")
-            #m=answer['content'].replace(hint," ")
             print(m)
             if(enable_talkback==True):
              talk(m)
@@ -262,36 +259,12 @@ def run_alexa(command=None,computer=None, name=None, No=None):
              talk(joke)
             return(joke)
         
-        elif 'weather in karur' in command:
-            weather_api = weather('Karur')
+        elif 'weather in ' in command:
+            to_search = command.replace('weather in ', '')
+            weather_api = weather(to_search)
             if(enable_talkback==True):
-             talk(f'The weather in Karur is {weather_api} degrees Fahrenheit')
-            return f'The weather in Karur is {weather_api} degrees Fahrenheit'
-        elif 'weather in trichy' in command:
-            weather_api = weather('Trichy')
-            if(enable_talkback==True):
-             talk(f'The weather in Trichy is {weather_api} degrees Fahrenheit')
-            return f'The weather in Trichy is {weather_api} degrees Fahrenheit'
-        elif 'weather in erode' in command:
-            weather_api = weather('erode')
-            if(enable_talkback==True):
-             talk(f'The weather in erode is {weather_api} degrees Fahrenheit')
-            return f'The weather in erode is {weather_api} degrees Fahrenheit'
-        elif 'weather in namakkal' in command:
-            weather_api = weather('namakkal')
-            if(enable_talkback==True):
-             talk(f'The weather in namakkal is {weather_api} degrees Fahrenheit')
-            return f'The weather in namakkal is {weather_api} degrees Fahrenheit'
-        elif 'weather in chennai' in command:
-            weather_api = weather('chennai')
-            if(enable_talkback==True):
-             talk(f'The weather in chennai is {weather_api} degrees Fahrenheit')
-            return f'The weather in chennai is {weather_api} degrees Fahrenheit'
-        elif 'weather in coimbatore' in command:
-            weather_api = weather('coimbatore')
-            if(enable_talkback==True):
-             talk(f'The weather in coimbatore is {weather_api} degrees Fahrenheit')
-            return f'The weather in coimbatore is {weather_api} degrees Fahrenheit'
+             talk(f'The weather in {} is {weather_api} degrees celsius')
+            return f'The weather in {} is {weather_api} degrees celsius'
         
         elif 'location' in command:
             current_location = get_current_location()
