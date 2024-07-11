@@ -175,12 +175,6 @@ def run_alexa(command=None,computer=None, name=None, No=None):
              talk('Current time is ' + time)
             return 'Current time is ' + time
 
-#        elif 'who is' in command:
-#            person = command.replace('who is', '')
-#            info = wikipedia.summary(person, 1)
-#            print(info)
-#            talk(info)
-
         elif 'who is' in command:
             to_search = command.replace('who is', '')
             info = wikipedia_summary(to_search)
@@ -234,11 +228,6 @@ def run_alexa(command=None,computer=None, name=None, No=None):
             if(enable_talkback==True):
              talk('hello welcome say something..')
             return 'hello welcome say something..'
-
-        elif 'tell me about vsb engineering college' in command:
-            if(enable_talkback==True):
-             talk('Our Institution, a temple of learning and a hallmark of discipline, treads towards the zenith of glory by preferring the education of global standards in the best quality and variety, and substantiates to be a benchmark among all the colleges in India.')
-            return 'Our Institution, a temple of learning and a hallmark of discipline, treads towards the zenith of glory by preferring the education of global standards in the best quality and variety, and substantiates to be a benchmark among all the colleges in India.'
 
         elif 'what is computer' in command:
             if(enable_talkback==True):
